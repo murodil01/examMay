@@ -83,7 +83,7 @@ const Brand = ({ cart, setCart }) => {
             />
           </div>
 
-          <Heart/>
+          <Heart />
           <Grip />
 
           <Button type="primary" style={{ height: "40px", width: "82px" }}>
@@ -93,51 +93,64 @@ const Brand = ({ cart, setCart }) => {
       </div>
 
       <Modal
-        title="Shopping Cart"
-        visible={modalVisible}
+        title="Savatcha"
+        open={modalVisible}
         onCancel={toggleModal}
         footer={null}
         width="90%"
         bodyStyle={{ padding: 0, height: "100vh" }}
         style={{ top: 0 }}
       >
-        <div className="h-full p-6 overflow-y-auto">
-          {cart.map((item) => (
-            <div key={item.id} className="flex justify-between mb-4">
-              <div className="flex gap-4">
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  className="w-20 h-20 object-cover"
-                />
-                <div>
-                  <h4>{item.name}</h4>
-                  <p>{item.price} sum</p>
+        <div className="h-full p-6 overflow-y-auto pb-28">
+          {cart.length === 0 ? (
+            <p>Savat bo‘sh</p>
+          ) : (
+            cart.map((item) => (
+              <div key={item.id} className="flex justify-between mb-4 items-center">
+                <div className="flex gap-4">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className="w-20 h-20 object-cover"
+                  />
+                  <div>
+                    <h4 className="font-semibold">{item.name}</h4>
+                    <p>
+                      {(item.discountPrice || item.price) * item.quantity} sum
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}>-</Button>
+                  <Input
+                    type="number"
+                    value={item.quantity}
+                    onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value) || 1)}
+                    style={{ width: "50px" }}
+                  />
+                  <Button onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>+</Button>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}>-</Button>
-                <Input
-                  value={item.quantity}
-                  onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
-                  style={{ width: "40px" }}
-                />
-                <Button onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>+</Button>
+            ))
+          )}
+
+          {cart.length > 0 && (
+            <>
+              <div className="flex justify-between font-bold mt-6">
+                <span>Umumiy narx:</span>
+                <span>{getTotalPrice()} sum</span>
               </div>
-            </div>
-          ))}
-          <div className="flex justify-between font-bold">
-            <span>Total:</span>
-            <span>{getTotalPrice()} sum</span>
-          </div>
-          <div className="flex gap-2 mt-4">
-            <Button type="default" onClick={() => setCart([])}>
-              Clear Cart
-            </Button>
-            <Button type="primary" onClick={toggleModal}>
-              Close
-            </Button>
-          </div>
+
+              <div className="flex gap-2 mt-4">
+                <Button type="default" onClick={() => setCart([])}>
+                  Savatchani tozalash
+                </Button>
+                <Button type="primary" onClick={toggleModal}>
+                  Yopish
+                </Button>
+              </div>
+            </>
+          )}
         </div>
         <div className="absolute bottom-0 left-0 right-0">
           <Footer />
