@@ -1,20 +1,29 @@
-import { useEffect, useState } from 'react';
-import Navbar from './components/Navbar';
-import Brand from './components/Brand';
-import Cards from './components/Cards';
-import Slider from './components/Slider';
-import Statistic from './components/Statistic';
-import Footer from './components/Footer';
+import { useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
+import Brand from "./components/Brand";
+import Cards from "./components/Cards";
+import Slider from "./components/Slider";
+import Statistic from "./components/Statistic";
+import Footer from "./components/Footer";
 
 function App() {
   const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem('cart');
+    const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
+  const [likedItems, setLikedItems] = useState(() => {
+    const savedLikedItems = localStorage.getItem("likedItems");
+    return savedLikedItems ? JSON.parse(savedLikedItems) : [];
+  });
+
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem("likedItems", JSON.stringify(likedItems));
+  }, [likedItems]);
 
   const addToCart = (product) => {
     setCart((prev) => {
@@ -31,18 +40,12 @@ function App() {
     });
   };
 
-  const updateQuantity = (id, quantity) => {
-    setCart((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity } : item))
-    );
-  };
-
   return (
     <>
       <Navbar />
-      <Brand cart={cart} setCart={setCart} updateQuantity={updateQuantity} />
+      <Brand cart={cart} setCart={setCart} likedItems={likedItems} />
       <Slider />
-      <Cards addToCart={addToCart} />
+      <Cards addToCart={addToCart} setLikedItems={setLikedItems} />
       <Statistic />
       <Footer />
     </>
@@ -50,4 +53,5 @@ function App() {
 }
 
 export default App;
+
 

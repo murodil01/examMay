@@ -2,41 +2,48 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Heart, ShoppingCart } from "lucide-react";
 
-const Cards = ({ addToCart }) => {
+const Cards = ({ addToCart, setLikedItems }) => {
   const [products, setProducts] = useState([]);
   const [liked, setLiked] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     axios
       .get("https://681a861e17018fe505780e94.mockapi.io/ZonShop/products")
       .then((res) => {
         setProducts(res.data);
-        setLoading(false);
       })
       .catch(() => {
-        setError("Xatolik yuz berdi");
-        setLoading(false);
+        console.error("Xatolik yuz berdi");
       });
   }, []);
 
+  useEffect(() => {
+    const savedLikedItems = localStorage.getItem("likedItems");
+    if (savedLikedItems) {
+      const likedItems = JSON.parse(savedLikedItems);
+      const likedState = {};
+      likedItems.forEach((item) => {
+        likedState[item.id] = true;
+      });
+      setLiked(likedState);
+    }
+  }, []);
+
   const toggleLike = (id) => {
-    setLiked((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+    setLiked((prev) => {
+      const updated = { ...prev, [id]: !prev[id] };
+      const likedList = products.filter((p) => updated[p.id]);
+      setLikedItems(likedList);
+      localStorage.setItem("likedItems", JSON.stringify(likedList));
+      return updated;
+    });
   };
 
-  if (loading) return <p className="text-center mt-10">Yuklanmoqda...</p>;
-  if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
+  if (products.length === 0) return <p className="text-center mt-10">Yuklanmoqda...</p>;
 
   return (
     <div className="max-w-[1200px] mx-auto mt-10">
-      <h1 className="font-medium text-[24.8px] tracking-[0.53px] mb-6">
-        Популярные
-      </h1>
-
+      <h1 className="font-medium text-[24.8px] tracking-[0.53px] mb-6">Популярные</h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {products.map((product) => (
           <div
@@ -49,11 +56,7 @@ const Cards = ({ addToCart }) => {
             >
               <Heart
                 size={22}
-                className={
-                  liked[product.id]
-                    ? "text-red-500 fill-red-500"
-                    : "text-gray-400"
-                }
+                className={liked[product.id] ? "text-red-500 fill-red-500" : "text-gray-400"}
               />
             </button>
 
@@ -75,17 +78,11 @@ const Cards = ({ addToCart }) => {
             <div className="flex items-center gap-2 mt-2">
               {product.discountPrice ? (
                 <>
-                  <span className="text-gray-500 line-through">
-                    {product.price} sum
-                  </span>
-                  <span className="text-red-500 font-bold">
-                    {product.discountPrice} sum
-                  </span>
+                  <span className="text-gray-500 line-through">{product.price} sum</span>
+                  <span className="text-red-500 font-bold">{product.discountPrice} sum</span>
                 </>
               ) : (
-                <span className="text-black font-medium">
-                  {product.price} sum
-                </span>
+                <span className="text-black font-medium">{product.price} sum</span>
               )}
             </div>
           </div>
