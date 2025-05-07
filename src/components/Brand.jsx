@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Button, Modal, Input, Select } from "antd";
-import { ShoppingBasket, Globe, FileQuestion, Grip, Search, } from "lucide-react";
-import katalog from "../assets/katalog.png";
+import { ShoppingBasket, Globe, FileQuestion, Grip, Search } from "lucide-react";
+import katalog from "../assets/katalog.png"; 
+import Footer from "./Footer";
 
-const Brand = ({ cart }) => {
+const Brand = ({ cart, setCart }) => {
   const [selectedLang, setSelectedLang] = useState("ru");
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -12,7 +13,7 @@ const Brand = ({ cart }) => {
   };
 
   const handleQuantityChange = (id, quantity) => {
-    if (quantity < 1) return;
+    if (quantity < 1) return; 
     setCart((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity } : item
@@ -93,15 +94,25 @@ const Brand = ({ cart }) => {
         visible={modalVisible}
         onCancel={toggleModal}
         footer={null}
+        width="90%"  
+        bodyStyle={{ padding: 0, height: '100vh' }}  
+        style={{ top: 0 }}
       >
-        <div>
+        <div className="h-full p-6 overflow-y-auto">
           {cart.map((item) => (
             <div key={item.id} className="flex justify-between mb-4">
-              <div>
-                <h4>{item.name}</h4>
-                <p>{item.price}₽</p>
+              <div className="flex gap-4">
+                <img
+                  src={item.img} 
+                  alt={item.name}
+                  className="w-20 h-20 object-cover" 
+                />
+                <div>
+                  <h4>{item.name}</h4>
+                  <p>{item.price}sum</p>
+                </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2">
                 <Button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}>-</Button>
                 <Input
                   value={item.quantity}
@@ -114,7 +125,7 @@ const Brand = ({ cart }) => {
           ))}
           <div className="flex justify-between font-bold">
             <span>Total:</span>
-            <span>{getTotalPrice()}₽</span>
+            <span>{getTotalPrice()} sum</span>
           </div>
           <div className="flex gap-2 mt-4">
             <Button type="default" onClick={() => setCart([])}>
@@ -124,6 +135,9 @@ const Brand = ({ cart }) => {
               Close
             </Button>
           </div>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0">
+          <Footer />
         </div>
       </Modal>
     </div>
