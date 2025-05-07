@@ -8,20 +8,23 @@ import lazer from "../assets/lazer.webp";
 const Statistic = () => {
   return (
     <div className="max-w-[1200px] mx-auto mt-[20px]">
-      <div className="flex gap-4 items-center">
-        <h1 className="font-medium text-[24.8px] leading-[100%] tracking-[0.53px] align-middle">
+      <div className="flex gap-6 items-center">
+        <h1 className="font-medium text-[24.8px] leading-[100%] tracking-[0.53px]">
           Статьи
         </h1>
-
         <button className="border rounded-2xl p-[4px] border-b-gray-500">
           Смотреть все
         </button>
       </div>
 
-      <div className="flex justify-between gap-2 mt-[21px]">
-        <div className="w-[284px] h-[283px] border">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-[21px]">
+        <div className="w-full h-[283px] border overflow-hidden">
           <div>
-            <img src={biometr} alt="" />
+            <img
+              src={biometr}
+              alt="Biometr"
+              className="w-full h-[160px] object-cover"
+            />
           </div>
           <div className="p-[8px] border-t">
             <span className="font-normal text-[15.75px] leading-[100%] text-[#6682A9]">
@@ -31,9 +34,13 @@ const Statistic = () => {
           </div>
         </div>
 
-        <div className="w-[284px] h-[283px] border">
+        <div className="w-full h-[283px] border overflow-hidden">
           <div>
-            <img src={chastot} alt="" />
+            <img
+              src={chastot}
+              alt="Chastot"
+              className="w-full h-[160px] object-cover"
+            />
           </div>
           <div className="p-[8px] border-t">
             <span className="font-normal text-[15.75px] leading-[100%] text-[#6682A9]">
@@ -43,11 +50,15 @@ const Statistic = () => {
           </div>
         </div>
 
-        <div className="w-[284px] h-[283px] border">
+        <div className="w-full h-[283px] border overflow-hidden">
           <div>
-            <img src={lazer} alt="" />
+            <img
+              src={lazer}
+              alt="Lazer"
+              className="w-full h-[160px] object-cover"
+            />
           </div>
-          <div className="p-[8px]  border-t">
+          <div className="p-[8px] border-t">
             <span className="font-normal text-[15.75px] leading-[100%] text-[#6682A9]">
               11.06.2023
             </span>
@@ -55,11 +66,15 @@ const Statistic = () => {
           </div>
         </div>
 
-        <div className="w-[284px] h-[283px] border">
+        <div className="w-full h-[283px] border overflow-hidden">
           <div>
-            <img src={lyulosmter} alt="" />
+            <img
+              src={lyulosmter}
+              alt="Lyulosmter"
+              className="w-full h-[160px] object-cover"
+            />
           </div>
-          <div className="p-[8px]  border-t">
+          <div className="p-[8px] border-t">
             <span className="font-normal text-[15.75px] leading-[100%] text-[#6682A9]">
               10.06.2023
             </span>
@@ -67,11 +82,15 @@ const Statistic = () => {
           </div>
         </div>
 
-        <div className="w-[284px] h-[283px] border">
+        <div className="w-full h-[283px] border overflow-hidden">
           <div>
-            <img src={termo} alt="" />
+            <img
+              src={termo}
+              alt="Termo"
+              className="w-full h-[160px] object-cover"
+            />
           </div>
-          <div className="p-[8px]  border-t">
+          <div className="p-[8px] border-t">
             <span className="font-normal text-[15.75px] leading-[100%] text-[#6682A9]">
               09.06.2023
             </span>

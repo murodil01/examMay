@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Input, Select } from "antd";
-import { ShoppingBasket, Globe, FileQuestion, Grip, Search } from "lucide-react";
-import katalog from "../assets/katalog.png"; 
+import { ShoppingBasket, Globe, Grip, Search, Heart } from "lucide-react";
+import katalog from "../assets/katalog.png";
 import Footer from "./Footer";
 
 const Brand = ({ cart, setCart }) => {
@@ -13,7 +13,7 @@ const Brand = ({ cart, setCart }) => {
   };
 
   const handleQuantityChange = (id, quantity) => {
-    if (quantity < 1) return; 
+    if (quantity < 1) return;
     setCart((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity } : item
@@ -22,13 +22,16 @@ const Brand = ({ cart, setCart }) => {
   };
 
   const getTotalPrice = () => {
-    return cart.reduce((acc, item) => acc + (item.discountPrice || item.price) * item.quantity, 0);
+    return cart.reduce(
+      (acc, item) => acc + (item.discountPrice || item.price) * item.quantity,
+      0
+    );
   };
 
   return (
     <div className="border-2" style={{ borderColor: "rgba(194, 205, 221, 1)" }}>
-      <div className="max-w-[1200px] mx-auto flex items-center gap-4 my-[17.5px]">
-        <div>
+      <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center gap-4 my-[17.5px]">
+        <div className="flex-shrink-0">
           <img
             className="w-[139px] h-[26px]"
             src="https://zon.uz/_next/static/media/zon.uz-logo.a51d6fb2.svg"
@@ -36,11 +39,11 @@ const Brand = ({ cart, setCart }) => {
           />
         </div>
 
-        <div>
+        <div className="my-2 sm:my-0">
           <img src={katalog} alt="Katalog" />
         </div>
 
-        <div className="flex-1 flex">
+        <div className="flex-1 flex items-center">
           <Input
             placeholder="Найти товары"
             style={{
@@ -51,11 +54,11 @@ const Brand = ({ cart, setCart }) => {
             }}
           />
           <div className="flex items-center justify-center px-4 bg-blue-500 rounded-r-md cursor-pointer">
-            <Search className="text-white w-5 h-5" />
+            <Search className="text-white w-5 h-[40px]" />
           </div>
         </div>
 
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center mt-4 sm:mt-0">
           <div className="relative cursor-pointer" onClick={toggleModal}>
             <ShoppingBasket size={35} />
             {cart.length > 0 && (
@@ -80,7 +83,7 @@ const Brand = ({ cart, setCart }) => {
             />
           </div>
 
-          <FileQuestion />
+          <Heart/>
           <Grip />
 
           <Button type="primary" style={{ height: "40px", width: "82px" }}>
@@ -94,8 +97,8 @@ const Brand = ({ cart, setCart }) => {
         visible={modalVisible}
         onCancel={toggleModal}
         footer={null}
-        width="90%"  
-        bodyStyle={{ padding: 0, height: '100vh' }}  
+        width="90%"
+        bodyStyle={{ padding: 0, height: "100vh" }}
         style={{ top: 0 }}
       >
         <div className="h-full p-6 overflow-y-auto">
@@ -103,13 +106,13 @@ const Brand = ({ cart, setCart }) => {
             <div key={item.id} className="flex justify-between mb-4">
               <div className="flex gap-4">
                 <img
-                  src={item.img} 
+                  src={item.img}
                   alt={item.name}
-                  className="w-20 h-20 object-cover" 
+                  className="w-20 h-20 object-cover"
                 />
                 <div>
                   <h4>{item.name}</h4>
-                  <p>{item.price}sum</p>
+                  <p>{item.price} sum</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">

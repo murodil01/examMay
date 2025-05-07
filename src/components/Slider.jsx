@@ -64,8 +64,8 @@ const Slider = () => {
         </SliderSlick>
       </div>
 
-      <div className="flex gap-[40px] justify-between">
-        <div className="bg-blue-100 w-[285px] h-[200px] flex-col py-[19.5px] rounded text-center flex justify-center items-center">
+      <div className="flex flex-wrap gap-4 justify-between sm:flex-nowrap sm:gap-6">
+        <div className="bg-blue-100 w-full sm:w-[285px] h-[200px] flex-col py-[19.5px] rounded text-center flex justify-center items-center">
           <h1 className="font-bold text-lg">Добро пожаловать!</h1>
           <p className="py-[9px] text-sm px-4">
             Войдите, чтобы оставлять отзывы <br /> и пользоваться другими
@@ -76,27 +76,26 @@ const Slider = () => {
           </Button>
         </div>
 
-        <div className="bg-blue-100 w-[285px] h-[200px] text-center flex gap-4 justify-center items-center rounded">
-          
+        <div className="bg-blue-100 w-full sm:w-[285px] h-[200px] text-center flex gap-4 justify-center items-center rounded">
           <h3 className="font-bold text-[18px] leading-[100%] text-blue-500">
             Покупать <br /> как юрлицо
           </h3>
           <Briefcase className="w-12 h-12 text-blue-400 mb-2" />
         </div>
 
-        <div>
+        <div className="w-full sm:w-[285px] h-[200px]">
           <img
             src={doczon}
             alt="Doczon"
-            className="w-[285px] h-[200px] rounded"
+            className="w-full h-full object-cover rounded"
           />
         </div>
 
-        <div>
+        <div className="w-full sm:w-[285px] h-[200px]">
           <img
             src={foodee}
             alt="Foodee"
-            className="w-[285px] h-[200px] rounded"
+            className="w-full h-full object-cover rounded"
           />
         </div>
       </div>
