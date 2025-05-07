@@ -85,7 +85,7 @@ const Brand = ({ cart, setCart, likedItems }) => {
           </div>
 
           <div className="relative cursor-pointer" onClick={toggleLikedModal}>
-            <Heart size={30} className="text-red-500" />
+            <Heart size={30} />
             {likedProducts.length > 0 && (
               <span className="absolute top-0 right-0 text-xs text-white bg-red-500 rounded-full px-2 py-1">
                 {likedProducts.length}
